@@ -1,4 +1,4 @@
-#language: ru
+﻿#language: ru
 
 @tree
 
@@ -8,13 +8,19 @@
 выполнить нагрузоное тестирование
 чтобы убедиться в устойчивости системы   
 
+Контекст:
+	Дано Я запускаю сценарий открытия TestClient или подключаю уже существующий
 
 Сценарий: создание элементов справочника Номенклатура
-	И Я запоминаю значение выражения '1' в переменную "Шаг"
-	И я делаю 10 раз
-		И Я запоминаю значение выражения '$Шаг$ + 1' в переменную "Шаг"
-		И Я запоминаю значение выражения '"Номенклатура" + $Шаг$' в переменную "Номенклатура"
-		И Я запоминаю значение выражения '"AN" + $Шаг$' в переменную "ItemId"
-		И я проверяю или создаю для справочника "Items" объекты:
-				| 'Ref'                                                               | 'DeletionMark' | 'ItemType'                                                          | 'Unit'                                                          | 'MainPricture'                          | 'Vendor'                                                           | 'ItemID'   | 'PackageUnit' | 'Description_en' | 'Description_hash' | 'Description_ru' | 'Description_tr' | 'Height' | 'Length' | 'Volume' | 'Weight' | 'Width' |
-				| '{"e1cib/data/Catalog.Items?ref=" + StrReplace(New UUID, "-", "")}' | 'False'        | 'e1cib/data/Catalog.ItemTypes?ref=b762b13668d0905011eb76684b9f6878' | 'e1cib/data/Catalog.Units?ref=b762b13668d0905011eb76684b9f687b' | 'ValueStorage:AQEIAAAAAAAAAO+7v3siVSJ9' | 'e1cib/data/Catalog.Partners?ref=b762b13668d0905011eb7663e35d794d' | '$ItemId$' | ''            | '$Номенклатура$' | ''                 | ''               | ''               |          |          |          | 0.21     |         |
+И В командном интерфейсе я выбираю "Справочники" "Номенклатура"
+Тогда открылось окно "Номенклатура"
+И я нажимаю на кнопку с именем 'FormCreate'
+И Я запоминаю значение выражения '1' в переменную "Шаг"
+И я делаю 10 раз
+	И Я запоминаю значение выражения '$Шаг$ + 1' в переменную "Шаг"
+	И Я запоминаю значение выражения '"Тестовая номенклатура" + $Шаг$' в переменную "Наименование"
+	И я проверяю или создаю для справочника "Items" объекты:
+		| 'Ref'                                                           | 'DeletionMark' | 'Code' | 'ItemType'                                                          | 'Unit'                                                          | 'MainPricture'                          | 'Vendor' | 'ItemID' | 'PackageUnit' | 'Description_en' | 'Description_hash' | 'Description_ru'         | 'Description_tr' | 'Height' | 'Length' | 'Volume' | 'Weight' | 'Width' |
+		| 'e1cib/data/Catalog.Items?ref=8d1d38d57aefa1b611f17d34bd03c23b' | 'False'        | 1      | 'e1cib/data/Catalog.ItemTypes?ref=8d1d38d57aefa1b611f17d34bd03c239' | 'e1cib/data/Catalog.Units?ref=8d1d38d57aefa1b611f17d34bd03c23a' | 'ValueStorage:AQEIAAAAAAAAAO+7v3siVSJ9' | ''       | '000001' | ''            | ''               | ''                 | 'Тестовая номенклатура'  | ''               |          |          |          |          |         |
+		| 'e1cib/data/Catalog.Items?ref=8d1d38d57aefa1b611f17d34bd03c23c' | 'False'        | 2      | 'e1cib/data/Catalog.ItemTypes?ref=8d1d38d57aefa1b611f17d34bd03c239' | 'e1cib/data/Catalog.Units?ref=8d1d38d57aefa1b611f17d34bd03c23a' | 'ValueStorage:AQEIAAAAAAAAAO+7v3siVSJ9' | ''       | '000003' | ''            | ''               | ''                 | 'Без Б'                  | ''               |          |          |          |          |         |
+		| 'e1cib/data/Catalog.Items?ref=8d1d38d57aefa1b611f17d34bd03c23d' | 'True'         | 3      | 'e1cib/data/Catalog.ItemTypes?ref=8d1d38d57aefa1b611f17d34bd03c239' | 'e1cib/data/Catalog.Units?ref=8d1d38d57aefa1b611f17d34bd03c23a' | 'ValueStorage:AQEIAAAAAAAAAO+7v3siVSJ9' | ''       | ''       | ''            | ''               | ''                 | 'Тестовая номенклатура2' | ''               |          |          |          |          |         |
